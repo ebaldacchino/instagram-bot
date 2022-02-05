@@ -1,6 +1,6 @@
 const { delay } = require('.');
 
-const navigateToFollowerPage = (follower) => {
+const navigateToFollowerPage = async (follower) => {
 	await instagram.page.type('input[aria-label="Search Input"]', follower, {
 		delay: randomizeDelay(50),
 	});
