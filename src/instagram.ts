@@ -1,5 +1,5 @@
 import * as puppeteer from 'puppeteer';
-
+import type { Instagram } from './types';
 const BASE_URL = 'https://www.instagram.com/';
 const TAG_URL = (tag) => `https://www.instagram.com/explore/tags/${tag}`;
 const PROFILE_URL = (username) =>
@@ -20,7 +20,7 @@ const getNewIndex = (indexes: number[], images: any[]): number | null => {
 	return result;
 };
 
-const instagram = {
+const instagram: Instagram = {
 	browser: null,
 	page: null,
 	wait: async (ms = 300) => {
@@ -118,11 +118,11 @@ const instagram = {
 				/* Click on the post */
 				await post.click();
 				/* Wait for the modal to appear */
-				await instagram.page.WaitForSelector('article[role=presentation]');
+				await instagram.page.waitForSelector('article[role=presentation]');
 				await delay(1000);
 				const likeSelector = 'span [aria-label="like"]';
 				let isLikeable = await post.$(likeSelector);
-				if (isLikeable) await post.click(likeSelector);
+				if (isLikeable) await isLikeable.click();
 				await delay(2000);
 				const closeSelector = 'button [aria-label="Close"]';
 				await instagram.page.click(closeSelector);
@@ -152,8 +152,8 @@ const instagram = {
 						console.log('This is a public page');
 						// iterate through images here
 						const images = await instagram.page.$$('article a img');
-						let indexes = [];
-						while (indexes.length < 6)
+						let indexes: number[] = [];
+						while (indexes.length < 6 && images.length < indexes.length)
 							indexes.push(getNewIndex(indexes, images));
 						console.log(indexes);
 						for (let i of indexes) {
@@ -177,6 +177,7 @@ const instagram = {
 						}
 					} catch (err) {
 						console.log('This is a private page');
+						await instagram.page.goBack();
 					} finally {
 						// exit window
 						//await instagram.browser.close();
