@@ -1,4 +1,4 @@
-import ig from '../instagram';
+import ig from './instagram';
 import { config } from 'dotenv';
 config();
 

@@ -5,6 +5,7 @@
 	"main": "build/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "tsc -w",
 		"start": "node build/index.js"
 	},
 	"author": "Edward Baldacchino",
