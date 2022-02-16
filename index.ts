@@ -1,5 +1,6 @@
-const ig = require('./instagram');
-require('dotenv').config();
+import ig from './instagram';
+import { config } from 'dotenv';
+config();
 
 (async () => {
 	await ig.initialize();

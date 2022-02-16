@@ -1,16 +1,16 @@
 {
-  "name": "instagram-bot",
-  "version": "1.0.0",
-  "description": "DIY instagram bot to increase followers",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "author": "Edward Baldacchino",
-  "license": "MIT",
-  "dependencies": {
-    "dotenv": "^14.3.2",
-    "puppeteer": "^13.1.2"
-  }
+	"name": "instagram-bot",
+	"version": "1.0.0",
+	"description": "DIY instagram bot to increase followers",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node index.js"
+	},
+	"author": "Edward Baldacchino",
+	"license": "MIT",
+	"dependencies": {
+		"dotenv": "^14.3.2",
+		"puppeteer": "^13.1.2"
+	}
 }

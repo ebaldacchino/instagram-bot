@@ -1,4 +1,6 @@
-import * as puppeteer from 'puppeteer';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const puppeteer = require("puppeteer");
 const BASE_URL = 'https://www.instagram.com/';
 const TAG_URL = (tag) => `https://www.instagram.com/explore/tags/${tag}`;
 const PROFILE_URL = (username) => `https://www.instagram.com/${username}/followers/`;
@@ -184,4 +186,4 @@ const instagram = {
         }
     },
 };
-export default instagram;
+exports.default = instagram;
