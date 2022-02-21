@@ -28,33 +28,32 @@ const instagram: Instagram = {
 			headless: false,
 		});
 		instagram.page = await instagram.browser.newPage();
-	},
-	login: async (username, password) => {
 		await instagram.page.goto(BASE_URL, { waitUntil: 'networkidle2' });
-		await delay(300);
+	},
+	goToLoginPage: async () => {
 		try {
-			let buttonToLoginPage = await instagram.page.$(
+			let loginButton = await instagram.page.$(
 				'//a[contains(text(), "Log in")]'
 			);
-			if (buttonToLoginPage) {
-				await buttonToLoginPage.click();
-				await instagram.wait(300);
+			if (loginButton) {
+				await loginButton.click();
 			}
 		} catch (err) {
 			console.log('Already on login page');
 		}
-
+	},
+	login: async (username, password) => {
 		try {
+			await delay(1000);
 			await instagram.page.type('input[name=username]', username, {
 				delay: randomizeDelay(50),
 			});
-			await delay(500);
 			await instagram.page.type('input[name=password]', password, {
 				delay: randomizeDelay(50),
 			});
 			await delay(500);
 			await instagram.page.click('button[type=submit]');
-			await instagram.wait(300);
+			await delay(1000);
 		} catch (err) {
 			console.log(err);
 		}
@@ -70,22 +69,35 @@ const instagram: Instagram = {
 			const posts = await instagram.page.$$(
 				'main > article > div:nth-of-type(2) img'
 			);
-
-			for (let i = 0; i < posts.length; i++) {
-				let post = posts[i];
-				/* Click on the post */
-				await post.click();
-				/* Wait for the modal to appear */
-				await instagram.page.waitForSelector('article[role=presentation]');
-				await delay(1000);
-				const likeSelector = 'span [aria-label="like"]';
-				let isLikeable = await post.$(likeSelector);
-				if (isLikeable) await isLikeable.click();
-				await delay(2000);
-				const closeSelector = 'button [aria-label="Close"]';
-				await instagram.page.click(closeSelector);
-				await delay(1000);
+			await posts[0].click();
+			// await instagram.page.waitForSelector('article[role=presentation]');
+			try {
+				while (true) {
+					await delay(5000);
+					const likeSelector = 'span [aria-label="Like"]';
+					let isLikeable = await instagram.page.$(likeSelector);
+					if (isLikeable) await isLikeable.click();
+					await delay(1000);
+					await instagram.page.click('svg [aria-label="Next"]');
+				}
+			} catch (err) {
+				console.log(err);
 			}
+			// for (let i = 0; i < posts.length; i++) {
+			// 	let post = posts[i];
+			// 	/* Click on the post */
+			// 	await post.click();
+			// 	/* Wait for the modal to appear */
+			// 	await instagram.page.waitForSelector('article[role=presentation]');
+			// 	await delay(1000);
+			// 	const likeSelector = 'span [aria-label="like"]';
+			// 	let isLikeable = await instagram.page.$(likeSelector);
+			// 	if (isLikeable) await isLikeable.click();
+			// 	await delay(2000);
+			// 	const closeSelector = 'button [aria-label="Close"]';
+			// 	await instagram.page.click(closeSelector);
+			// 	await delay(1000);
+			// }
 		}
 	},
 	likeFollowersProcess: async (targets = []) => {
@@ -130,7 +142,7 @@ const instagram: Instagram = {
 			let indexes: number[] = [];
 			while (indexes.length < 6 && images.length < indexes.length)
 				indexes.push(getNewIndex(indexes, images));
-				
+
 			for (let i of indexes) {
 				// opens image modal
 				await images[i].click();
@@ -167,7 +179,7 @@ const instagram: Instagram = {
 	},
 	navigateToProfile: async () => {
 		try {
-			await delay(500);
+			await delay(1000);
 			await instagram.page.click('nav span[role="link"]');
 			await delay(500);
 			await instagram.page.click('svg[aria-label="Profile"]');

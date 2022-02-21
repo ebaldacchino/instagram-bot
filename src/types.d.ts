@@ -4,6 +4,7 @@ export interface Instagram {
 	browser: Browser | null;
 	page: Page | null;
 	initialize: () => Promise<void>;
+	goToLoginPage: () => Promise<void>;
 	login: (username: string, password: string) => Promise<void>;
 	likeFollowersProcess: (followers?: string[]) => Promise<void>;
 	likeFollowerImages: (follower: ElementHandle<Element>) => Promise<void>;
