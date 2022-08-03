@@ -1,0 +1,22 @@
+{
+	"name": "instagrambot",
+	"version": "1.0.0",
+	"description": "Instagram bot",
+	"main": "build/index.js",
+	"keywords": [],
+	"license": "MIT",
+	"scripts": {
+		"start": "tsc && node ./build/index.js",
+		"dev": "tsc --w"
+	},
+	"devDependencies": {
+		"@types/node": "latest",
+		"@types/puppeteer": "latest",
+		"typescript": "latest"
+	},
+	"dependencies": {
+		"dotenv": "latest",
+		"puppeteer": "latest",
+		"sqlite3": "^5.0.10"
+	}
+}
