@@ -2,6 +2,7 @@ import browser from './browser';
 import login from './login';
 import { getUrl } from './utils';
 import config from './config';
+import getTargetsFollowers from './getTargetsFollowers';
 
 (async () => {
 	try {
@@ -13,6 +14,8 @@ import config from './config';
 		await page.goto(url, {
 			waitUntil: 'networkidle0',
 		});
+
+		await getTargetsFollowers();
 	} catch (e) {
 		console.log(e);
 		browser.close();
