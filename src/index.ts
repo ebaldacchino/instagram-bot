@@ -2,7 +2,7 @@ import browser from './browser';
 import login from './login';
 import { getUrl } from './utils';
 import config from './config';
-import getTargetsFollowers from './getTargetsFollowers';
+import TargetsFollowers from './TargetsFollowers';
 
 (async () => {
 	try {
@@ -12,14 +12,15 @@ import getTargetsFollowers from './getTargetsFollowers';
 		//go to competitor's page
 		const url = getUrl(`${config.target}/followers/`);
 		await page.goto(url, {
-			waitUntil: 'networkidle0',
+			waitUntil: 'networkidle2',
 		});
 
-		let data = await getTargetsFollowers();
+		let usernames = await TargetsFollowers.getUsernames();
 
-		console.log(data);
+		console.log(usernames);
 	} catch (e) {
 		console.log(e);
+	} finally {
 		browser.close();
 	}
 })();

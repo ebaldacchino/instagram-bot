@@ -12,6 +12,6 @@ export default async function login() {
 	await page.type('input[name=password]', password, { delay: 200 });
 	await page.click('button[type=submit]', { delay: 200 });
 	await page.waitForNetworkIdle();
-	await page.click('button', { delay: 200 });
-	await page.waitForNetworkIdle();
+	// await page.click('button', { delay: 200 });
+	// await page.waitForNetworkIdle();
 }

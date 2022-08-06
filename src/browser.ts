@@ -5,6 +5,7 @@ export const initializeBrowser = (): PuppeteerBrowser =>
 	puppeteer.launch({
 		headless: false,
 		args: ['--lang=en-US,en'],
+		devtools: true,
 	});
 
 class Browser {

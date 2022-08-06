@@ -4,7 +4,7 @@ Steps:
 - Authenticate x
 - Go to target's followers x
 - Scroll through all followers x
-- Scrape follower's usernames
+- Scrape follower's usernames x
 - Add followers to database
 - Start iterating through follower's profiles
     - Data fields
