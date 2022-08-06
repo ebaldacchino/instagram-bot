@@ -1,12 +1,11 @@
 import browser from './browser';
 
-export default async function getTargetsFollowers(): Promise<void> {
+export default async function getTargetsFollowers(): Promise<string[]> {
 	const page = await browser.getPage();
 	const scrollable_section = 'div[role=dialog] > div > div > div:nth-child(2)';
 
 	await page.waitForSelector(scrollable_section);
 
-	// scroll to bottom of followers container (so all followers are displayed in the UI)
 	await page.evaluate(function scrollToBottom(selector) {
 		const scrollableSection = document.querySelector(selector);
 
@@ -24,4 +23,20 @@ export default async function getTargetsFollowers(): Promise<void> {
 			}
 		}, 4000);
 	}, scrollable_section);
+
+	// get data
+	const usernames = await page.evaluate((selector) => {
+		let arr: string[] = [];
+
+		for (let item of document.querySelectorAll(selector)) {
+			const username: string =
+				item.getAttribute('href') ?? ''.split('/').at(-2);
+			if (username) {
+				arr.push(username);
+			}
+		}
+		return arr;
+	}, 'div[role=dialog] li a');
+
+	return usernames;
 }

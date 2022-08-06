@@ -15,7 +15,9 @@ import getTargetsFollowers from './getTargetsFollowers';
 			waitUntil: 'networkidle0',
 		});
 
-		await getTargetsFollowers();
+		let data = await getTargetsFollowers();
+
+		console.log(data);
 	} catch (e) {
 		console.log(e);
 		browser.close();
